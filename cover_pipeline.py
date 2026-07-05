@@ -491,6 +491,10 @@ def main():
     shutil.rmtree(model_dataset_dir, ignore_errors=True)
     os.makedirs(model_dataset_dir, exist_ok=True)
     
+    # Clean up stale logs and checkpoints to prevent spectrogram (.spec.pt) and wav length mismatch errors
+    model_logs_dir = os.path.join(now_dir, "logs", args.model_name)
+    shutil.rmtree(model_logs_dir, ignore_errors=True)
+    
     # 1. Download audio tracks
     print("--- 📥 DOWNLOADING TRACKS ---")
     song_wav = download_youtube_audio(args.song_url, "song_input")
